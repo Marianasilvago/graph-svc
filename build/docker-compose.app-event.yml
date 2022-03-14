@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  graph-svc-service:
+    container_name: graph-svc-go
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - "../BATHROOM_VISIT_DATA.csv:/root/BATHROOM_VISIT_DATA.csv"
+    ports:
+      - "8080:8080"
+    labels:
+      collect_logs_using_filebeat: "true"
+      convert_logs_to_json_object: "true"
+    networks:
+      - graphsvcnetwork
